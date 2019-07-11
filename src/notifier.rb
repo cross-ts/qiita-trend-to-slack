@@ -10,6 +10,7 @@ class Notifier
   NOTIFY_CHANNEL = '#qiita'
 
   def initialize
+    raise "Missing ENV['SLACK_API_TOKEN']" unless ENV['SLACK_API_TOKEN']
     Slack.configure { |config| config.token = ENV['SLACK_API_TOKEN'] }
     client.auth_test
   end
