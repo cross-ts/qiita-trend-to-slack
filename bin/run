@@ -1,5 +1,8 @@
 #!/usr/bin/env ruby
 
 require_relative '../src/qiita_scraper'
+require_relative '../src/notifier'
 
-puts QiitaScraper.run.map(&:description)
+QiitaScraper.run.each do |trend|
+  Notifier.instance.send(trend)
+end
