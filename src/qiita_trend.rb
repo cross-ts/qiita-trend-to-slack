@@ -15,23 +15,23 @@ class QiitaTrend
   end
 
   def title
-    json['node']['title']
+    json.dig('node', 'title')
   end
 
   def author_name
-    json['node']['author']['urlName']
+    json.dig('node', 'author', 'urlName')
   end
 
   def author_icon
-    json['node']['author']['profileImageUrl']
+    json.dig('node', 'author', 'profileImageUrl')
   end
 
   def uuid
-    json['node']['uuid']
+    json.dig('node', 'uuid')
   end
 
   def created_at
-    Time.parse(json['node']['createdAt'])
+    Time.parse(json.dig('node', 'createdAt'))
   end
 
   def url

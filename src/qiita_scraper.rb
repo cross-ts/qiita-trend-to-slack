@@ -21,7 +21,7 @@ class QiitaScraper
   end
 
   def run
-    json['trend']['edges'].map.with_index(1) do |trend, rank|
+    json.dig('trend', 'edges').map.with_index(1) do |trend, rank|
       QiitaTrend.new(trend, rank: rank)
     end
   end
