@@ -11,6 +11,7 @@ class Notifier
 
   def initialize
     Slack.configure { |config| config.token = ENV['SLACK_API_TOKEN'] }
+    client.auth_test
   end
 
   def send(trend)
