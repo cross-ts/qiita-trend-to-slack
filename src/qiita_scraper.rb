@@ -4,6 +4,9 @@ require 'json'
 
 require_relative 'qiita_trend'
 
+#
+# Qiitaのdailyトレンドをスクレイピングするクラス
+#
 class QiitaScraper
   QIITA_URL = 'https://qiita.com'
   HTTPS_PORT = 443

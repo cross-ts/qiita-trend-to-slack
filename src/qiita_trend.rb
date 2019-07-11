@@ -1,3 +1,6 @@
+#
+# Qiitaのトレンド記事
+#
 class QiitaTrend
   attr_accessor :title, :author, :uuid, :rank
 
