@@ -1,12 +1,13 @@
-FROM ruby:alpine
-WORKDIR /app
-RUN apk add --no-cache build-base
-
-COPY Gemfile Gemfile.lock /app/
+FROM ruby:alpine as builder
+RUN apk add build-base
+COPY Gemfile Gemfile.lock .
 RUN bundle install
 
-COPY src /app/src
-COPY bin /app/bin
-
+FROM ruby:alpine
+WORKDIR /app
+ENV LANG ja_JP.UTF-8
+RUN gem install bundler
+COPY --from=builder /usr/local/bundle /usr/local/bundle
+COPY . /app/
 ENTRYPOINT ["bundle", "exec"]
-CMD bin/run
+CMD ["bin/run"]
