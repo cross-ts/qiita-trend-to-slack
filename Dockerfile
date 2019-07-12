@@ -4,10 +4,10 @@ COPY Gemfile Gemfile.lock .
 RUN bundle install
 
 FROM ruby:alpine
-WORKDIR /app
-ENV LANG ja_JP.UTF-8
+LABEL maintainer "cross-ts <ts.kouhei@gmail.com>"
+WORKDIR /bot
 RUN gem install -N bundler
 COPY --from=builder /usr/local/bundle /usr/local/bundle
-COPY . /app/
+COPY . /bot/
 ENTRYPOINT ["bundle", "exec"]
 CMD ["bin/run"]
