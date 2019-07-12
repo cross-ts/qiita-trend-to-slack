@@ -6,7 +6,7 @@ RUN bundle install
 FROM ruby:alpine
 WORKDIR /app
 ENV LANG ja_JP.UTF-8
-RUN gem install bundler
+RUN gem install -N bundler
 COPY --from=builder /usr/local/bundle /usr/local/bundle
 COPY . /app/
 ENTRYPOINT ["bundle", "exec"]
