@@ -4,3 +4,9 @@
 ```
 $ docker run --rm --env SLACK_API_TOKEN=<token> crossts/qiita-trend-to-slack:latest
 ```
+
+or
+
+```
+$ docker run --rm --env-file .env crossts/qiita-trend-to-slack:latest
+```
