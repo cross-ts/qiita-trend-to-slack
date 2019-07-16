@@ -3,6 +3,5 @@
 require_relative '../src/qiita_scraper'
 require_relative '../src/notifier'
 
-QiitaScraper.run.each do |trend|
-  Notifier.instance.send(trend)
-end
+trends = QiitaScraper.run
+Notifier.instance.notify!(trends)

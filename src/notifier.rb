@@ -15,14 +15,23 @@ class Notifier
     client.auth_test
   end
 
-  def send(trend)
-    client.chat_postMessage(
-      channel: NOTIFY_CHANNEL,
-      attachments: [trend.to_slack_attachment],
-    )
+  def notify!(trends)
+    post(attachments: trends.map(&:to_slack_attachment), thread_ts: thread)
   end
 
   private
+
+  def post(message)
+    client.chat_postMessage(message.merge(channel: NOTIFY_CHANNEL))
+  end
+
+  def thread
+    @thread ||= post(text: "*【Qiita Trend】* at *#{now}*").ts
+  end
+
+  def now
+    Time.now.strftime('%Y/%m/%d %H:%M')
+  end
 
   def client
     @client ||= Slack::Web::Client.new
