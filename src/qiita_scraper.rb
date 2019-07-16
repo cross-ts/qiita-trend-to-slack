@@ -3,14 +3,12 @@ require 'nokogiri'
 require 'json'
 
 require_relative 'qiita_trend'
+require_relative 'config'
 
 #
 # Qiitaのdailyトレンドをスクレイピングするクラス
 #
 class QiitaScraper
-  QIITA_URL = 'https://qiita.com'
-  HTTPS_PORT = 443
-
   class << self
     def run
       new.run
@@ -29,11 +27,11 @@ class QiitaScraper
   private
 
   def uri
-    URI.parse(QIITA_URL)
+    URI.parse(Config::QIITA_URL)
   end
 
   def response
-    http = Net::HTTP.new(uri.host, HTTPS_PORT)
+    http = Net::HTTP.new(uri.host, Config::HTTPS_PORT)
     http.use_ssl = true
     http.get('/')
   end

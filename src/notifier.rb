@@ -4,14 +4,13 @@
 require 'singleton'
 require 'slack-ruby-client'
 
+require_relative 'config'
+
 class Notifier
   include Singleton
 
-  NOTIFY_CHANNEL = '#qiita'
-
   def initialize
-    raise "Missing ENV['SLACK_API_TOKEN']" unless ENV['SLACK_API_TOKEN']
-    Slack.configure { |config| config.token = ENV['SLACK_API_TOKEN'] }
+    Slack.configure { |config| config.token = Config::SLACK_API_TOKEN }
     client.auth_test
   end
 
@@ -22,7 +21,7 @@ class Notifier
   private
 
   def post(message)
-    client.chat_postMessage(message.merge(channel: NOTIFY_CHANNEL))
+    client.chat_postMessage(message.merge(channel: Config::NOTIFY_CHANNEL))
   end
 
   def thread
