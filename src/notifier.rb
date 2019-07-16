@@ -14,8 +14,11 @@ class Notifier
     client.auth_test
   end
 
-  def notify!(trends)
-    post(attachments: trends.map(&:to_slack_attachment), thread_ts: thread)
+  def notify!(qiita_trends)
+    # NOTE: More than 6 attachments will ommit on slack app.
+    qiita_trends.each_slice(5) do |trends|
+      post(attachments: trends.map(&:to_slack_attachment), thread_ts: thread)
+    end
   end
 
   private
