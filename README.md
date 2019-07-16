@@ -2,7 +2,7 @@
 
 # How to use?
 ```
-$ docker run --rm --env SLACK_API_TOKEN=<token> crossts/qiita-trend-to-slack:latest
+$ docker run --rm --env SLACK_API_TOKEN=<token> --env NOTIFY_CHANNEL=#qiita crossts/qiita-trend-to-slack:latest
 ```
 
 or
