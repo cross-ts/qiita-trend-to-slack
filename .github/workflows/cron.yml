@@ -15,4 +15,4 @@ jobs:
         env:
           SLACK_API_TOKEN: ${{ secrets.slack_token }}
           NOTIFY_CHANNEL: ${{ secrets.channel }}
-        uses: docker://${{ secrets.image_name }}:latest
+        uses: 'docker://${{ secrets.image_name }}:latest'
