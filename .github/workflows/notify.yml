@@ -1,11 +1,9 @@
 name: Exec
 
 on:
-  # schedule:
-  #   - cron: '*/5 * * * *'
-  push:
-    branches:
-      - master
+  schedule:
+    # At 21:00 (UTC) -> 06:00 (JST)
+    - cron: '00 00 21 * *'
 
 jobs:
   exec:
