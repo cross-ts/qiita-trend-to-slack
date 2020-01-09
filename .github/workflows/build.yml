@@ -1,13 +1,19 @@
 name: Build Docker Image
 
-on: [push]
+on:
+  push:
+    branches:
+      - master
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
+      - name: Login
+        run: docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
       - name: Build the Docker image
-        run: docker build .
         env:
           DOCKER_BUILDKIT: 1
+        run: docker build .
+        shell: bash
