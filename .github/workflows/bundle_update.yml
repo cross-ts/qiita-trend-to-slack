@@ -1,0 +1,27 @@
+name: Bundle Update
+
+on:
+  push:
+    branches:
+      - master
+  schedule:
+    # At 21:00 on Friday (UTC) -> 06:00 on Saturday (JST)
+    - cron: '00 21 * * FRI'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Build the Docker image
+        env:
+          DOCKER_BUILDKIT: 1
+        run: docker build -t ${{ secrets.image_name }} .
+      - name: Bundle Update
+        run: |
+          docker run \
+            -v $(pwd):/bot \
+            --entrypoint bundle \
+            ${{ secrets.image_name }} update
+      - name: Debug
+        run: git status
