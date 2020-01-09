@@ -1,5 +1,7 @@
+.github/*
 .git/*
 .env
 .env.exsample
+.gitignore
 Dockerfile
 README.md
