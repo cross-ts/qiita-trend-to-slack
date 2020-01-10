@@ -5,7 +5,9 @@ on:
     branches:
       - master
     paths:
+      - '**'
       - '!.github/**'
+      - '.github/workflows/build.yml'
       - '!.env.exsample'
       - '!.gitignore'
       - '!README.md'
