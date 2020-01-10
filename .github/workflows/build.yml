@@ -22,7 +22,7 @@ jobs:
           echo ${{ secrets.password }} | docker login -u ${{ secrets.user }} --password-stdin
       - name: Pulling builder cache.
         run: |
-          docker pull ${{ secrets.image＿name }}:builder-cache || exit 0
+          docker pull ${{ secrets.image_name }}:builder-cache || exit 0
       - name: Build bundler-cache image.
         env:
           DOCKER_BUILDKIT: 1
