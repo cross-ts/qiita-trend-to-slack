@@ -18,9 +18,26 @@ jobs:
       - name: Login to Docker Hub.
         run: |
           echo ${{ secrets.password }} | docker login -u ${{ secrets.user }} --password-stdin
-      - name: Build the Docker image.
+      - name: Pulling builder cache.
+        run: |
+          docker pull ${{ secrets.image＿name }}:builder-cache || exit 0
+      - name: Build bundler-cache image.
         env:
           DOCKER_BUILDKIT: 1
-        run: docker build -t ${{ secrets.image_name }} .
-      - name: Push to Docker Hub.
-        run : docker push ${{ secrets.image_name }}
+        run: |
+          docker build \
+            --target builder \
+            -t ${{ secrets.image_name }}:builder-cache \
+            .
+      - name: Build Full Docker image.
+        env:
+          DOCKER_BUILDKIT: 1
+        run: |
+          docker build \
+            -t ${{ secrets.image_name }}:latest \
+            --cache-from ${{ secrets.image_name }}:builder-cache \
+            .
+      - name: Push cache image to Docker Hub.
+        run: docker push ${{ secrets.image_name }}:builder-cache
+      - name: Push image to Docker Hub.
+        run: docker push ${{ secrets.image_name }}:latest
